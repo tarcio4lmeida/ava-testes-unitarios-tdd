@@ -18,6 +18,16 @@ class BonusServiceTest {
     }
 
     @Test
+    void bonusDeveriaSerZeroParaFuncionarioComSalarioMuitoAltoComTryCatch() {
+        try {
+            BonusService bonusService = new BonusService();
+        bonusService.calcularBonus(new Funcionario("Tarcio", LocalDate.now(), new BigDecimal(250000)));
+        } catch (Exception e) {
+            assertEquals("Funcionario com salario maior que do que RS 10.000,0 nao recebe bonus", e.getMessage());
+        }
+    }
+
+    @Test
     void bonusDeveriaSer10PorCentoDoSalario() {
         BonusService bonusService = new BonusService();
         BigDecimal bonus = bonusService.calcularBonus(new Funcionario("Tarcio", LocalDate.now(), new BigDecimal(1000)));
